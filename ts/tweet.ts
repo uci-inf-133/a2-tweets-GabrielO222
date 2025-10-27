@@ -10,13 +10,20 @@ class Tweet {
 	//returns either 'live_event', 'achievement', 'completed_event', or 'miscellaneous'
     get source():string {
         //TODO: identify whether the source is a live event, an achievement, a completed event, or miscellaneous.
-        return "unknown";
+        if (this.text.toLowerCase().includes("live")) {
+            return "live_event";
+        } else if (this.text.toLowerCase().includes("achieved")) {
+            return "achievement";
+        } else if (this.text.toLowerCase().includes("completed") || this.text.toLowerCase().includes("posted")) {
+            return "completed_event";
+        }
+        return "miscellaneous";
     }
 
     //returns a boolean, whether the text includes any content written by the person tweeting.
     get written():boolean {
         //TODO: identify whether the tweet is written
-        return false;
+        return !this.text.includes('@');
     }
 
     get writtenText():string {
@@ -24,7 +31,7 @@ class Tweet {
             return "";
         }
         //TODO: parse the written text from the tweet
-        return "";
+        return this.text.substring(0, this.text.indexOf("http")).trim();
     }
 
     get activityType():string {
@@ -32,7 +39,11 @@ class Tweet {
             return "unknown";
         }
         //TODO: parse the activity type from the text of the tweet
-        return "";
+        let index:number = this.text.indexOf(" mi ");
+        if (index == -1) {
+            index = this.text.indexOf(" km ");
+        }
+        return this.text.substring(index + 2, this.text.indexOf(" - ")).trim();
     }
 
     get distance():number {
@@ -40,7 +51,12 @@ class Tweet {
             return 0;
         }
         //TODO: prase the distance from the text of the tweet
-        return 0;
+        let index:number = this.text.indexOf(" a ");
+        let distance:number = this.text.substring(index, this.text.indexOf(".") + 3).trim() as unknown as number;
+        if (this.activityType.toLowerCase() == "km") {
+            distance = distance / 1.60934;
+        }
+        return distance;
     }
 
     getHTMLTableRow(rowNumber:number):string {

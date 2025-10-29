@@ -39,11 +39,21 @@ class Tweet {
             return "unknown";
         }
         //TODO: parse the activity type from the text of the tweet
-        let index:number = this.text.indexOf(" mi ");
-        if (index == -1) {
-            index = this.text.indexOf(" km ");
+        let startIndex:number = this.text.indexOf(" mi ");
+        if (startIndex == -1) {
+            startIndex = this.text.indexOf(" km ");
         }
-        return this.text.substring(index + 2, this.text.indexOf(" - ")).trim();
+        if (startIndex == -1) {
+            return "unknown";
+        }
+        let endIndex:number = this.text.indexOf(" - ");
+        if (endIndex == -1) {
+            endIndex = this.text.indexOf(" with ");
+        }
+        if (endIndex == -1) {
+            return "unknown";
+        }
+        return this.text.substring(startIndex + 4, endIndex);
     }
 
     get distance():number {
@@ -52,8 +62,8 @@ class Tweet {
         }
         //TODO: prase the distance from the text of the tweet
         let index:number = this.text.indexOf(" a ");
-        let distance:number = this.text.substring(index, this.text.indexOf(".") + 3).trim() as unknown as number;
-        if (this.activityType.toLowerCase() == "km") {
+        let distance:number = this.text.substring(index + 2, this.text.indexOf(".") + 3).trim() as unknown as number;
+        if (this.text.includes(" km ")) {
             distance = distance / 1.60934;
         }
         return distance;

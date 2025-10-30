@@ -183,8 +183,8 @@ function parseTweets(runkeeper_tweets) {
 		},
 		"mark": "point",
 		"encoding": {
-			"x": {"field": "dayOfWeek", "title": "Day of the Week", "type": "ordinal", "sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]},
-			"y": {"field": "distance", "title": "Distance (mi)", "type": "quantitative"},
+			"x": {"field": "dayOfWeek", "title": "Time (day)", "type": "ordinal", "sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]},
+			"y": {"field": "distance", "title": "Distance", "type": "quantitative"},
 			"color": {"field": "activityType", "title": "Activity Type", "type": "nominal"}
 		}
 	};
@@ -197,8 +197,8 @@ function parseTweets(runkeeper_tweets) {
 		},
 		"mark": "point",
 		"encoding": {
-			"x": {"field": "dayOfWeek", "title": "Day of the Week", "type": "ordinal", "sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]},
-			"y": {"field": "distance", "title": "Distance (mi)", "type": "quantitative", "aggregate": "mean"},
+			"x": {"field": "dayOfWeek", "title": "Time (day)", "type": "ordinal", "sort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]},
+			"y": {"field": "distance", "title": "Mean of Distance", "type": "quantitative", "aggregate": "mean"},
 			"color": {"field": "activityType", "title": "Activity Type", "type": "nominal"}
 		}
 	};
